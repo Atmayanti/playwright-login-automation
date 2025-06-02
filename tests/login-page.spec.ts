@@ -1,5 +1,5 @@
 // tests/login.spec.ts
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login-page';
 import { TemplatesPage } from '../pages/templates-page';
 import { loginTestData } from '../tests/fixtures/login-data';
@@ -13,13 +13,27 @@ test.describe('Login Scenarios', () => {
 
       await templatesPage.goTo();
       await loginPage.acceptCookies();
-      await loginPage.clickLoginButton();
+      await loginPage.clickLoginModal();
       await loginPage.login(data.email, data.password);
+
+      // if (data.isValid) {
+      //   await expect(page.getByRole('link', { name: 'MY PROFILE' }))
+      //     .toBeVisible({ timeout: 10000 });
+      // } else {
+      //   try {
+      //     await loginPage.expectErrorMessage(data.expectedError);
+      //   } catch {
+      //     throw new Error(`❌ Expected error message "${data.expectedError}" not found.`);
+      //   }
+      // }
 
       if (data.isValid) {
         await templatesPage.verifyProfileVisible();
       } else {
-        await templatesPage.verifyErrorMessageVisible();
+        if (!data.expectedError) {
+          throw new Error('Expected error message is missing in test data');
+        }
+        await loginPage.expectValidationMessage(data.expectedError);
       }
     });
   }
