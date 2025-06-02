@@ -5,4 +5,4 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-/fixtures/test-data.ts
+/tests/fixtures/login-data.ts
