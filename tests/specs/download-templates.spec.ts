@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { TemplatesPage } from '../pages/templates-page';
-import { loginPrecondition } from '../helpers/login-precondition';
+import { TemplatesPage } from '../../pages/templates-page';
+import { loginPrecondition } from '../../helpers/login-precondition';
 
 test.describe('Download Template', () => {
   test.setTimeout(120000);

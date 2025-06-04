@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/login-page';
-import { TemplatesPage } from '../pages/templates-page';
-import { resetPasswordData } from '../tests/fixtures/reset-password-data';
+import { LoginPage } from '../../pages/login-page';
+import { TemplatesPage } from '../../pages/templates-page';
+import { resetPasswordData } from '../fixtures/reset-password-data';
 
 test.describe('Forgot Password Scenarios', () => {
   test.setTimeout(120000);
@@ -12,7 +12,7 @@ test.describe('Forgot Password Scenarios', () => {
       const templatesPage = new TemplatesPage(page);
 
       await templatesPage.goTo();
-      await loginPage.acceptCookies();
+      await templatesPage.acceptCookies();
       await loginPage.clickLoginModal();
       await loginPage.clickForgotPassword();
       await loginPage.resetPassword(data.email);
@@ -25,7 +25,6 @@ test.describe('Forgot Password Scenarios', () => {
         }
         await loginPage.expectValidationMessage(data.expectedError);
       }
-
     });
   }
 });
